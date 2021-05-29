@@ -1,0 +1,76 @@
+<template>
+  <div class="login">
+    <h2>ログイン</h2>
+    <div class="login_content">
+      <label for="">
+        メールアドレス: <input type="email" v-model="email" name="email" required />
+      </label>
+      <br />
+      <label for="">
+        パスワード: <input type="password" v-model="password" name="password" required />
+      </label>
+      <br />
+      <button @click="login">ログイン</button>
+    </div>
+    <NuxtLink to="/register">新規登録</NuxtLink>
+    
+    <!-- test api get -->
+    <div class="test">
+      {{ test }}
+    </div>
+  </div>
+</template>
+
+<script>
+import firebase from "~/plugins/firebase";
+import axios from "axios";
+export default {
+  data() {
+    return {
+      email: null,
+      password: null,
+      test: null
+    }
+  },
+  // mounted() {
+  //   axios
+  //     .get('http://127.0.0.1:8000/api/v1/user')
+  //     .then((response) => (this.test = response.data.data[0].name));
+  // },
+  methods: {
+    login() {
+      if (!this.email || !this.password) {
+        alert('メールアドレスまたはパスワードが入力されていません。');
+        return
+      }
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.email, this.password)
+        .then((data) => {
+          alert('ログインが完了しました')
+          this.$router.push('/home')
+        })
+        .catch((error) => {
+          switch (error.code) {
+            case 'auth/invalid-email':
+              alert('メールアドレスの形式が違います。')
+              break
+            case 'auth/user-disabled':
+              alert('ユーザーが無効になっています。')
+              break
+            case 'auth/user-not-found':
+              alert('ユーザーが存在しません。')
+              break
+            case 'auth/wrong-password':
+              alert('パスワードが間違っております。')
+              break
+            default:
+              alert('エラーが起きました。しばらくしてから再度お試しください。')
+              break
+          }
+        })
+    }
+  }
+  
+}
+</script>

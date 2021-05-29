@@ -23,6 +23,7 @@
           GitHub
         </a>
       </div>
+      <NuxtLink to="/register">test</NuxtLink>
     </div>
   </div>
 </template>

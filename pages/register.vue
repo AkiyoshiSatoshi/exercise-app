@@ -3,21 +3,20 @@
     <h2>新規登録</h2>
     <div class="register_content">
       <label for="">
-        ユーザー名: <input type="text" name="username" id="" v-model="name" required />
+        <input type="text" name="username" id="" v-model="name" placeholder="UserName" required />
       </label>
       <br />
       <label for="">
-        メールアドレス: <input type="email" name="email" v-model="email" required />
+        <input type="email" name="email" v-model="email" placeholder="Email" required />
       </label>
       <br />
       <label for="">
-        パスワード: <input type="password" name="password" v-model="password" required />
+        <input type="password" name="password" v-model="password" placeholder="Password" required />
       </label>
       <br />
       <button @click="register">新規登録</button>
       <br />
       <NuxtLink to="/login">ログイン</NuxtLink>
-
     </div>
   </div>
 </template>
@@ -78,3 +77,39 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+.register {
+  text-align: center;
+  width: 50%;
+  margin: 150px auto;
+  background: white;
+  border-radius: 20px;
+  padding: 20px 0;
+}
+
+h2 {
+  color: black;
+}
+
+.register_content {
+  padding-top: 20px;
+}
+
+input {
+  border: 1px solid black;
+  margin-bottom: 10px;
+  height: 30px;
+  width: 70%;
+  border-radius: 5px;
+}
+
+button {
+  padding: 5px 10px;
+  border-radius: 20px;
+  border: none;
+  color: white;
+  background: #315EB1;
+}
+</style>

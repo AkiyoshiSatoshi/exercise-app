@@ -1,7 +1,7 @@
 <template>
   <div class="sidebar">
     <img class="sidebar_img" src="../assets/img/logo.png" alt="">
-    <div class="sidebar_content">
+    <div class="sidebar_content" >
       <img src="../assets/img/home.png" alt="">
       <p>ホーム</p>
     </div>
@@ -11,7 +11,7 @@
     </div>
     <div class="share_input">
       <p>シェア</p>
-      <input type="text" v-model="share_post" class="share_post">
+      <textarea type="text" v-model="share_post" class="share_post"></textarea>
       <button @click="share">シェアする</button>
     </div>
   </div>
@@ -22,7 +22,8 @@ import axios from "axios";
 import firebase from "firebase";
 export default {
   props:[
-    "UserId"
+    "userId",
+    "test"
   ],
   data() {
     return {
@@ -30,29 +31,31 @@ export default {
     }
   },
   
-  // async created(){
-  //   firebase
-  //     .auth()
-  //     .onAuthStateChanged((user) => {
-  //     console.log(user);
-  //   })
-  // },
   methods: {
-    async share() {
-      
-      await axios.get('http://127.0.0.1:8000/api/v1/user')
 
+    // async getShare() {
+    //   axios.get('http://127.0.0.1:8000/api/v1/post')
+    //   .then((response) => {
+    //     this.test = response.data.data;
+    //   })
+    // },
+
+    /** share Post */
+    async share() {
       const sendData = {
         contents: this.share_post,
-        user_id: this.UserId,
-        // post_id: 5,
+        user_id: this.userId,
       }
-      console.log(sendData);
       await axios.post("http://127.0.0.1:8000/api/v1/post", sendData)
       .then((res) => {
         console.log(res);
       })
+      this.getShare();
     },
+    /** share Post */
+
+
+    /**Logout(firebase) */
     logout() {
       firebase
         .auth()
@@ -62,15 +65,17 @@ export default {
           this.$router.replace('/login')
         })
     },
-    // async share() {
-    //   sendData = {
+    /**Logout(firebase) */
 
-    //   }
-    //   await axios.post('http://127.0.0.1:8000/api/v1/post',)
-    //     .then((response) => {
+  },
 
-    //     })
-    // }
+  created: {
+    async getShare() {
+      axios.get('http://127.0.0.1:8000/api/v1/post')
+      .then((response) => {
+        this.test = response.data.data;
+      })
+    },
   }
 }
 </script>
@@ -121,6 +126,7 @@ export default {
   border: 1px solid white;
   color: white;
   border-radius: 10px;
+  overflow-wrap: anywhere;
 }
 
 .share_input button {

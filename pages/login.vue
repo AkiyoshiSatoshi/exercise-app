@@ -1,23 +1,26 @@
 <template>
-  <div class="login">
-    <h2>ログイン</h2>
-    <div class="login_content">
-      <label for="">
-        <input type="email" v-model="email" name="email" required placeholder="Email"/>
-      </label>
-      <br />
-      <label for="">
-        <input type="password" v-model="password" name="password" required placeholder="Password"/>
-      </label>
-      <br />
-      <button @click="login">ログイン</button>
+  <div>
+    <Header/>
+    <div class="login">
+      <h2>ログイン</h2>
+      <div class="login_content">
+        <label for="">
+          <input type="email" v-model="email" name="email" required placeholder="Email"/>
+        </label>
+        <br />
+        <label for="">
+          <input type="password" v-model="password" name="password" required placeholder="Password"/>
+        </label>
+        <br />
+        <button @click="login">ログイン</button>
+      </div>
+      <NuxtLink to="/register">新規登録</NuxtLink>
+      <NuxtLink to="/home">Home</NuxtLink>
+      <!-- test api get -->
+      <!-- <div class="test">
+        {{ test }}
+      </div> -->
     </div>
-    <NuxtLink to="/register">新規登録</NuxtLink>
-    <NuxtLink to="/home">Home</NuxtLink>
-    <!-- test api get -->
-    <!-- <div class="test">
-      {{ test }}
-    </div> -->
   </div>
 </template>
 
